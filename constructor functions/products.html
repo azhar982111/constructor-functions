@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #display {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    #div {
+        border: 1px solid teal;
+        display: flex;
+    }
+
+    #images {
+        height: 200px;
+        width: 200px;
+    }
+
+    #display>div>:nth-child(2) {
+        margin-top: 50px;
+        height: 30px;
+        width: 100px;
+        margin-right: 10px;
+    }
+
+   #display>div>:nth-child(3) {
+        margin-top: 50px;
+        height: 30px;
+        width: 100px;
+        background-color: green;
+    }
+</style>
+
+<body>
+
+
+
+    <div id="display">
+
+
+
+    </div>
+
+
+
+
+</body>
+<!-- 
+"https://5.imimg.com/data5/SELLER/Default/2021/2/UZ/AT/MY/116598507/we-04-500x500.jpg"
+
+"https://res.cloudinary.com/swiggy/image/upload/fl_…to,q_auto,w_508,h_320,c_fill/lxfiyqhsydc6x2rcbrdq"
+
+"https://5.imimg.com/data5/SELLER/Default/2021/2/UZ/AT/MY/116598507/we-04-500x500.jpg"
+
+"https://images.indianexpress.com/2022/07/Nothing-phone-1-Black-ExpressPhoto-1.jpg?w=389" -->
+
+<script>
+
+    let receivedData = JSON.parse(localStorage.getItem("Products"))
+    // console.log(receivedData)
+
+    function displayData() {
+
+        let displayDiv = document.getElementById("display")
+        displayDiv.innerHTML = ""
+
+        receivedData.forEach((element, index) => {
+            let division = document.createElement("div")
+            division.setAttribute("id", "div" + index)
+
+            let image = document.createElement("img")
+            image.setAttribute("id", "images")
+            image.src = element.Imageurl
+
+            let removebtn = document.createElement("button")
+            removebtn.setAttribute("id", "removebtn" + index)
+            removebtn.textContent = "REMOVE"
+
+            let soldbtn = document.createElement("button")
+            soldbtn.setAttribute("id", "soldbtn" + index)
+            soldbtn.textContent = "SOLD"
+
+            division.append(image, removebtn, soldbtn)
+            displayDiv.append(division)
+
+            removebtn.addEventListener("click", function () {
+                removeDivision(index);
+            });
+
+            soldbtn.addEventListener("click", function () {
+                marksold(index);
+            });
+        });
+
+    }
+
+    
+    displayData()
+
+    function removeDivision(index) {
+        // document.getElementById("div" + index).innerHTML = ""
+        receivedData.splice(index, 1)
+        console.log(receivedData)
+        localStorage.setItem("Products", JSON.stringify(receivedData))
+        displayData()
+
+    }
+
+    function marksold(index){
+        document.getElementById("soldbtn" + index).style.backgroundColor = "red"
+    }
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #main {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #main input {
+        width: 180px;
+    }
+
+    #add {
+        width: 150px;
+    }
+
+    #gender {
+        width: 180px;
+    }
+</style>
+
+<body>
+
+    <div id="main">
+
+        <label>Product name</label>
+        <input type="text" id="name">
+
+        <label>Category</label>
+        <input type="text" id="category">
+
+        <label>Image url</label>
+        <input type="text" id="imageurl">
+
+        <label>Price </label>
+        <input type="number" id="price">
+
+        <label>Gender </label>
+        <select id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Sold </label>
+        <input type="checkbox" id="sold">
+
+        <button id="add">S U B M I T</button>
+
+    </div>
+
+
+</body>
+<script>
+
+    let data = []
+
+    function postData() {
+        try {
+
+            let name = document.getElementById("name").value
+            let category = document.getElementById("category").value
+            let imageurl = document.getElementById("imageurl").value
+            let price = document.getElementById("price").value
+            let gender = document.getElementById("gender").value
+            let sold = document.getElementById("sold").checked
+
+            let product = new Product(name, category, imageurl, price, gender, sold)
+
+            data.push(product)
+
+            console.log(data)
+
+            localStorage.setItem("Products",JSON.stringify(data))
+
+        }
+        catch (error) {
+
+        }
+
+    }
+
+
+    function Product(name, category, imageurl, price, gender, sold) {
+        this.Name = name;
+        this.Category = category;
+        this.Imageurl = imageurl;
+        this.Price = price;
+        this.Gender = gender;
+        this.Sold = sold;
+    }
+
+    document.getElementById("add").addEventListener("click", postData)
+
+
+
+
+</script>
+
+</html>
